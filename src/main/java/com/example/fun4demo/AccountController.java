@@ -24,7 +24,7 @@ public class AccountController {
 
         Account a = new Account();
         accountRepository.save(account);
-        return "Saved";
+        return "{Saved}";
     }
     @DeleteMapping(value = "/{id}")
     public String deleteAccount(@PathVariable long id) {
