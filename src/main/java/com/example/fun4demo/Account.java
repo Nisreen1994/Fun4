@@ -2,10 +2,7 @@ package com.example.fun4demo;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -17,6 +14,8 @@ public class Account {
     private Boolean staffMember;
     private String email;
     private String password;
+    @OneToOne (mappedBy = "account")
+    private Timesheet timesheet;
     public Account(){}
     //Account constructor: This constructor will be used when we supply form data to the controller.
     Account (String firstName, String lastName,Boolean staffMember,String email,String password){
@@ -25,6 +24,8 @@ public class Account {
         this.staffMember=staffMember;
         this.email=email;
         this.password=password;
+
+
 
     }
     public long getId() {
