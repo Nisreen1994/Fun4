@@ -26,7 +26,11 @@ public class LoadDataBase {
             Timesheet timesheet1 = new Timesheet("IT Bouw", account1);
             Timesheet timesheet2 = new Timesheet( "KFC", account1);
 
-            RegistrationData data1 = new RegistrationData("Fiex Desk drive", "15-02-2015", "14:20", "13:00", timesheet1);
+            RegistrationData data1 = new RegistrationData("Fiex Desk drive1", "15-01-2015", "14:20", "15:00", timesheet1);
+            RegistrationData data2 = new RegistrationData("Fiex Desk drive2", "10-02-2015", "11:20", "13:00", timesheet1);
+            RegistrationData data3 = new RegistrationData("Fiex Desk drive3", "30-03-2015", "15:20", "16:00", timesheet1);
+
+
 
 
 
@@ -35,7 +39,8 @@ public class LoadDataBase {
             log.info("Preloading" + timesheetRepository.save(timesheet1));
             log.info("Preloading" + timesheetRepository.save(timesheet2));
             log.info("preloading"+ registrationDataRepository.save(data1));
-        };
+            log.info("preloading"+ registrationDataRepository.save(data2));  log.info("preloading"+ registrationDataRepository.save(data3));     };
     }
 
 }
+

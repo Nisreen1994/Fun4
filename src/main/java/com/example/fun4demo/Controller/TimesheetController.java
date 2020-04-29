@@ -44,7 +44,12 @@ public class TimesheetController {
                                       @Valid @RequestBody Timesheet timesheetUpdated){
         return timesheetRepository.findById(timesheetId).map(timesheet ->
         {
-            timesheet.setProject(timesheetUpdated.getProject());
+            if (timesheetUpdated.getProject() == null) {
+                timesheet.setProject(timesheet.getProject());
+            }
+            else {
+                timesheet.setProject(timesheetUpdated.getProject());
+            }
             return timesheetRepository.save(timesheet);
 
         }).orElseThrow();

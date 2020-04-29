@@ -32,9 +32,11 @@ public class RegistrationDataController {
             (@PathVariable Long timesheetId,@Valid @RequestBody RegistrationData registrationData
             ) {
         // TODO 2) het is altijd de backend die de controles doet.
-        return timesheetRepository.findById(timesheetId).map(timesheet -> {
+       return   timesheetRepository.findById(timesheetId).map(timesheet -> {
             registrationData.setTimesheet(timesheet);
-            return registrationDataRepository.save(registrationData);}).orElseThrow();
+           return registrationDataRepository.save(registrationData);}).orElseThrow();
+
+        
 
         // TODO 2 mogelijkheden: het bestond al, of is nieuw aangemaakt.
         // TODO 3 voorlopig mag je van mij hier een json response teruggeven, maar het is veel netter om met HTTP status codes te werken.
@@ -45,11 +47,36 @@ public class RegistrationDataController {
                                       @Valid @RequestBody RegistrationData dataUpdated){
         return registrationDataRepository.findById(dataId).map(data ->
         {
-            data.setActivity(dataUpdated.getActivity());
-            data.setDate(dataUpdated.getDate());
-            data.setStartTime(dataUpdated.getStartTime());
-            data.setEndTime(dataUpdated.getEndTime());
-            data.setDescription(dataUpdated.getDescription());
+            if (dataUpdated.getActivity() == null){
+                data.setActivity(data.getActivity());
+            }
+            else {
+                data.setActivity(dataUpdated.getActivity());
+            }
+            if (dataUpdated.getDate() == null) {
+                data.setDate(data.getDate());
+            }
+            else{
+                data.setDate(dataUpdated.getDate());
+            }
+            if (dataUpdated.getStartTime() == null) {
+                data.setStartTime(data.getStartTime());
+            }
+            else {
+                data.setStartTime(dataUpdated.getStartTime());
+            }
+            if (dataUpdated.getEndTime() == null) {
+                data.setEndTime(data.getEndTime());
+            }
+            else {
+                data.setEndTime(dataUpdated.getEndTime());
+            }
+            if (dataUpdated.getDescription() == null){
+                data.setDescription(data.getDescription());
+            }
+            else {
+                data.setDescription(dataUpdated.getDescription());
+            }
             return registrationDataRepository.save(data);
 
         }).orElseThrow();

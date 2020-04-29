@@ -31,33 +31,53 @@ public class AccountController {
         return accountRepository.findById(id).get();
     }
     @PostMapping
-    public @ResponseBody String addNewAccount (@Valid @RequestBody Account account
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody ResponseEntity addNewAccount (@Valid @RequestBody Account account
     ) {
         // TODO 2) het is altijd de backend die de controles doet.
 
         Account a = new Account();
         Account emailExist = accountRepository.findByEmail(account.getEmail());
         if (emailExist != null){
-            new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity(HttpStatus.CONFLICT);
+
         }
         else{
             accountRepository.save(account);
-            new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+
+
         }
 
 
 
-        return "{Saved}"; // TODO 2 mogelijkheden: het bestond al, of is nieuw aangemaakt.
+        //return "{Saved}"; // TODO 2 mogelijkheden: het bestond al, of is nieuw aangemaakt.
         // TODO 3 voorlopig mag je van mij hier een json response teruggeven, maar het is veel netter om met HTTP status codes te werken.
     }
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = {"/{id}"})
     public Account updateAccount (@PathVariable Long id , @Valid @RequestBody Account accountUpdate){
-        return accountRepository.findById(id).map(account->{
-            account.setFirstName(accountUpdate.getFirstName());
-            account.setLastName(accountUpdate.getLastName());
-            account.setStaffMember(accountUpdate.getStaffMember());
-            account.setEmail(accountUpdate.getEmail());
-            account.setPassword(accountUpdate.getPassword());
+        return accountRepository.findById(id).map(account->
+        {
+            if (accountUpdate.getFirstName() == null){
+                account.setFirstName(account.getFirstName());
+            }
+            else {
+                account.setFirstName(accountUpdate.getFirstName());
+            }
+            if (accountUpdate.getLastName() == null){
+                account.setLastName(account.getLastName());
+            }
+            else {
+                account.setLastName(accountUpdate.getLastName());
+            }
+            if (accountUpdate.getStaffMember() == null){
+                account.setStaffMember(account.getStaffMember());
+            }
+            else {
+                account.setStaffMember(accountUpdate.getStaffMember());
+            }
+            account.setEmail(account.getEmail());
+            account.setPassword(account.getPassword());
             return accountRepository.save(account);
         }).orElseThrow();
 
