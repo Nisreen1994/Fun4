@@ -1,11 +1,10 @@
 package com.example.fun4demo.Controller;
 
 import com.example.fun4demo.Model.RegistrationData;
-import com.example.fun4demo.Model.Timesheet;
-import com.example.fun4demo.Repository.AccountRepository;
 import com.example.fun4demo.Repository.RegistrationDataRepository;
 import com.example.fun4demo.Repository.TimesheetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +12,7 @@ import java.util.List;
 
 @CrossOrigin( maxAge = 3600, allowedHeaders = "*")
 @RestController
+@Configuration
 @RequestMapping // This means URL's start with /demo (after Application path)
 
 public class RegistrationDataController {

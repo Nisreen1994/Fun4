@@ -1,17 +1,21 @@
 package com.example.fun4demo.Controller;
 
 import com.example.fun4demo.Model.Account;
-import com.example.fun4demo.Repository.AccountRepository;
 
+import com.example.fun4demo.Repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin( maxAge = 3600, allowedHeaders = "*")
 @RestController
+@Configuration
 @RequestMapping(path="/account") // This means URL's start with /demo (after Application path)
 public class AccountController {
     @Autowired // This means to get the bean called userRepository
@@ -30,24 +34,47 @@ public class AccountController {
     Account getAccount(@PathVariable Long id){
         return accountRepository.findById(id).get();
     }
+
+    @PostMapping("/login")
+
+    public @ResponseBody
+    Optional<Account> getAccountId   (  @RequestBody Account inlogAccount) {
+        //Account a = new Account();
+        //Account validEmail = accountRepository.findByEmail(inlogAccount.getEmail());
+        //Account validPassword = accountRepository.findByPassword(inlogAccount.getPassword());
+
+        List<Account> accounts = accountRepository.findAll();
+        for (Account acc : accounts) {
+            if (acc.getEmail().equals(inlogAccount.getEmail()) && acc.getPassword().equals(inlogAccount.getPassword())) {
+                Long id = acc.getId();
+                return accountRepository.findById(id)  ;
+            }
+
+        }
+
+        return Optional.empty();
+    }
+
+
+
+
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody ResponseEntity addNewAccount (@Valid @RequestBody Account account
     ) {
-        // TODO 2) het is altijd de backend die de controles doet.
+
 
         Account a = new Account();
         Account emailExist = accountRepository.findByEmail(account.getEmail());
-        if (emailExist != null){
-            return new ResponseEntity(HttpStatus.CONFLICT);
-
-        }
-        else{
+        if (emailExist != null) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        else
             accountRepository.save(account);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
 
-        }
+
 
 
 

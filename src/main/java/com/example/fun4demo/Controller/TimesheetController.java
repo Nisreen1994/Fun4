@@ -1,11 +1,11 @@
 package com.example.fun4demo.Controller;
 
 
-import com.example.fun4demo.Model.Account;
 import com.example.fun4demo.Model.Timesheet;
 import com.example.fun4demo.Repository.AccountRepository;
 import com.example.fun4demo.Repository.TimesheetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +13,7 @@ import java.util.List;
 
 @CrossOrigin( maxAge = 3600, allowedHeaders = "*")
 @RestController
+@Configuration
 @RequestMapping
 public class TimesheetController {
     @Autowired

@@ -1,5 +1,6 @@
 package com.example.fun4demo.Model;
 
+import com.example.fun4demo.Model.Timesheet;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Account {
 
     private @Id @GeneratedValue long id;
     private String firstName;
+
     private String lastName;
     private Boolean staffMember;
     private String password;
