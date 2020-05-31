@@ -22,11 +22,12 @@ public class RegistrationData {
 
     public RegistrationData(){}
 
-    public RegistrationData(String activity, String date, String startTime, String endTime, Timesheet timesheet) {
+    public RegistrationData(String activity, String date, String startTime, String endTime,String description ,Timesheet timesheet) {
         this.activity=activity;
         this.date=date;
         this.startTime=startTime;
         this.endTime=endTime;
+        this.description =description;
         this.timesheet=timesheet;
 
     }
